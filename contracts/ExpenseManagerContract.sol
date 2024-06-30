@@ -2,6 +2,11 @@
 
 // We are creating a contract
 
+
+// Here we need to define the solidity version
+
+pragma solidity ^0.8.0;
+
 contract ExpenseManagerContract {
 
 
