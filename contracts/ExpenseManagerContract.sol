@@ -5,7 +5,8 @@
 
 // Here we need to define the solidity version
 
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.19;
+// pragma experimental ABIEncoderV2; 
 
 contract ExpenseManagerContract {
 
@@ -30,7 +31,7 @@ contract ExpenseManagerContract {
 
     Transaction[] public transactions;
 
-    constructor ( ) public {
+    constructor ( ) {
         owner = msg.sender;
     }
 
@@ -47,7 +48,7 @@ contract ExpenseManagerContract {
 
     // Deposite function
     function deposite(uint _amount, string memory _reason)public payable{
-            require(_amount>0, "Deposite amount should be greater than 0" );
+            require(_amount>0, "Deposit amount should be greater than 0" );
             balances[msg.sender]+= _amount;
             transactions.push(Transaction(msg.sender, _amount, _reason, block.timestamp));
 
@@ -115,3 +116,7 @@ contract ExpenseManagerContract {
   
     
 }
+
+
+
+
