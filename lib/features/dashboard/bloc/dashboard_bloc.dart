@@ -47,7 +47,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       // To create socketUrl we just copy the same and place websocket(ws) in place of https
       const String socketUrl = "ws://127.0.0.1:7545";
       const String privateKey =
-          "0x530564352ea30368b2180c783a4365c5a082cae8a27b7c168510684d8857913a";
+          "0x4ccda1c0988df882136449cb9c60d4b47bad22544504f3f5d6978136f94b9c9f";
 
 // Using this web3 client we can communicate to the SmartContract
       _web3Client = Web3Client(
@@ -69,7 +69,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
           jsonEncode(jsonDecoded['abi']), 'ExpenseManagerContract');
 
       _contractAddress =
-          EthereumAddress.fromHex("0x9DF9fb8D87c280766a002f4A329C2D1d94e3de86");
+          EthereumAddress.fromHex("0xfa65C75672a4ee55F7878168944E91D0f564A37C");
 
       _creds = EthPrivateKey.fromHex(privateKey);
 
@@ -90,18 +90,24 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
 
       final balanceData = await _web3Client!
           .call(contract: _deployedContract, function: _getBalance, params: [
-        EthereumAddress.fromHex("0x9DF9fb8D87c280766a002f4A329C2D1d94e3de86")
+        EthereumAddress.fromHex("0xfa65C75672a4ee55F7878168944E91D0f564A37C")
       ]);
       List<TransactionModel> trans = [];
       for (int i = 0; i < transactionsData[0].length; i++) {
         TransactionModel transactionModel = TransactionModel(
-            transactionsData[0][i],
-            transactionsData[1][i],
+            transactionsData[0][i].toString(),
+            transactionsData[1][i].toInt(),
             transactionsData[2][i],
-            DateTime.fromMicrosecondsSinceEpoch(transactionsData[3][i])
-            );
+            DateTime.fromMicrosecondsSinceEpoch(
+                transactionsData[3][i].toInt()));
+        trans.add(transactionModel);
       }
-      ;
+
+      transactions = trans;
+      int bal = balanceData[0].toInt();
+      balance = bal;
+
+      emit(DashboardSuccessState(transactions: transactions, balance: balance));
     } catch (e) {
       print(e.toString());
       emit(DashboardErrorState());
@@ -110,25 +116,43 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
 
   FutureOr<void> dashBoardDepositeEvent(
       DashboardDepositeEvent event, Emitter<DashboardState> emit) async {
-    final data = await _web3Client!.call(
-        contract: _deployedContract,
-        function: _deposit,
-        params: [
-          event.transactionModel.amount,
-          event.transactionModel.reasons
-        ]);
-    print(data.toString());
+    try {
+      final transaction = Transaction.callContract(
+          contract: _deployedContract,
+          function: _deposit,
+          parameters: [
+            BigInt.from(event.transactionModel.amount),
+            event.transactionModel.reasons
+          ],
+          value: EtherAmount.inWei(BigInt.from(event.transactionModel.amount)));
+
+      final result = await _web3Client!.sendTransaction(_creds, transaction,
+          chainId: 1337, fetchChainIdFromNetworkId: false);
+      // log(e.toString());
+      add(DashboardInitialFetchEvent());
+    } catch (e) {
+      // log(e.toString());
+    }
   }
 
   FutureOr<void> dashboardWithdrawEvent(
       DashboardWithdrawEvent event, Emitter<DashboardState> emit) async {
-    final data = await _web3Client!.call(
+    try {
+      final transaction = Transaction.callContract(
         contract: _deployedContract,
         function: _withdraw,
-        params: [
-          event.transactionModel.amount,
+        parameters: [
+          BigInt.from(event.transactionModel.amount),
           event.transactionModel.reasons
-        ]);
-    print(data.toString());
+        ],
+      );
+
+      final result = await _web3Client!.sendTransaction(_creds, transaction,
+          chainId: 1337, fetchChainIdFromNetworkId: false);
+      // log(e.toString());
+      add(DashboardInitialFetchEvent());
+    } catch (e) {
+      // log(e.toString());
+    }
   }
 }
