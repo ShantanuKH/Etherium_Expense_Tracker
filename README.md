@@ -1,16 +1,48 @@
-# etherium_expense_tracker
+# Ethereum Expense Tracker 📊💸
 
-A new Flutter project.
+## Overview
+Ethereum Expense Tracker is a Flutter application that leverages blockchain technology to help users manage and track expenses securely. It integrates web3dart for seamless interaction with Ethereum smart contracts, ensuring transparency and reliability in expense management.
 
-## Getting Started
+## Features 🚀
+  - Secure Expense Recording: Store expense records securely on the Ethereum blockchain.
+  - Transaction History: View detailed transaction history and expense details.
+  - Ethereum Integration: Utilizes web3dart for seamless blockchain interaction.
+  - User Authentication: Optional blockchain-based identity solutions for secure access control.
+  - Expense Analytics: Analyze spending patterns and generate reports from blockchain data.
 
-This project is a starting point for a Flutter application.
+Setup 🛠️
+ - Clone the repository:
+   git clone https://github.com/ShantanuKH/ethereum_expense_tracker.git
+cd ethereum_expense_tracker
+Install dependencies:
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Usage 📱
+  ### Recording Expenses:
+   - Use the app to record new expenses, including amount, category, and description.
+   = Submit expenses securely to the Ethereum blockchain using web3dart.
+ ### Viewing Expense History:
+  - Navigate through the app to view detailed transaction history and expense entries.
+### Analyzing Expenses:
+  - Utilize built-in analytics features to analyze spending patterns and generate insightful reports.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Use Ganache for Local Blockchain:
+   - Start Ganache to simulate a local Ethereum blockchain environment for testing purposes.
+### Use Truffle for Smart Contracts:
+   - Develop and deploy Ethereum smart contracts using Truffle framework.
+     
+#### Ensure contracts are deployed to Ganache or your local blockchain environment.
+
+    
+<!---Screenshots 📸--->
+
+
+
+
+## Troubleshooting ⚠️
+If you encounter any issues, try the following troubleshooting steps:
+
+ - Issue: App fails to connect to Ethereum blockchain.
+     - Solution: Verify Ganache or your Ethereum RPC endpoint configuration in lib/config.dart.
+ - Issue: Transactions are not confirmed or errors occur during submission.
+     - Solution: Check network connectivity and ensure proper gas fee allocation for transactions.
