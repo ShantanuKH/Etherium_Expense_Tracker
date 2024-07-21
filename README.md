@@ -10,13 +10,6 @@ Ethereum Expense Tracker is a Flutter application that leverages blockchain tech
   - User Authentication: Optional blockchain-based identity solutions for secure access control.
   - Expense Analytics: Analyze spending patterns and generate reports from blockchain data.
 
-Setup 🛠️
- - Clone the repository:
-   git clone https://github.com/ShantanuKH/ethereum_expense_tracker.git
-cd ethereum_expense_tracker
-Install dependencies:
-
-
 ## Usage 📱
   ### Recording Expenses:
    - Use the app to record new expenses, including amount, category, and description.
