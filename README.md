@@ -31,11 +31,17 @@ Ethereum Expense Tracker is a Flutter application that leverages blockchain tech
 
 
 
+ 
+## Author
 
-## Troubleshooting ⚠️
-If you encounter any issues, try the following troubleshooting steps:
+   ### Shantanu Khadse
 
- - Issue: App fails to connect to Ethereum blockchain.
-     - Solution: Verify Ganache or your Ethereum RPC endpoint configuration in lib/config.dart.
- - Issue: Transactions are not confirmed or errors occur during submission.
-     - Solution: Check network connectivity and ensure proper gas fee allocation for transactions.
+   For any query, contribution, You can contact here,
+  
+  GitHub: [ShantanuKH](https://github.com/ShantanuKH)
+  
+  Email: shantanukhadse784@gmail.com  
+  
+  LinkedIn: [shantanukhadse](https://www.linkedin.com/in/shantanu-khadse-a62585230/)
+
+
